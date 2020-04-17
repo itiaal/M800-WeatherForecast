@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <title>Weather Forecast</title>
+</head>
+<body>
+<div id="app" class="forcasts">
+  <v-app id="inspire" margin=10px>
+    <v-overlay :value="overlay">
+          <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
+    <v-row no-gutters class="justify-center">
+      <v-col cols="6">
+        <div class="display-3">Weather Forecast (Vue.js)</div>
+      </v-col>
+    </v-row>
+    <v-row no-gutters class="justify-center">
+      <v-col cols="6">
+        <v-text-field label="Type a location" v-model="searchLocate" v-on:keyup.enter="getLocateData" single-line outlined clearable></v-text-field>
+      </v-col>
+    </v-row>
+    <v-row no-gutters class="pa-4" justify="center">
+      <v-col cols="8" class="row">
+        <div class="col" v-for="data in locateData" justify="center"><img :src="getImgUrl(data)">
+          <br>{{ data.date }}, H: {{ data.humidity }}%<br> Max: {{ Math.round(data.max_temp) }}, Min: {{ Math.round(data.min_temp) }} </div>
+      </v-col>
+    </v-row>
+    <v-row no-gutters class="pa-4" justify="center">
+      <v-col cols="8">
+        <ve-histogram :data="tempChartData" :settings="tempChartSettings"></ve-histogram>
+      </v-col>
+      <v-col cols="4">
+        <ve-pie :data="piChartData" :settings="piChartSettings"></ve-pie>
+      </v-col>
+    </v-row>
+  </v-app>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/v-charts/lib/index.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/v-charts/lib/style.min.css">
+<script type="module" src="js/script.js"></script>
+</body>
+</html>
